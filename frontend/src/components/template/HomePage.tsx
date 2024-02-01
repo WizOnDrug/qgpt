@@ -7,27 +7,15 @@ import Box from "@mui/material/Box";
 import { yekan } from "@/utils/fonts";
 import Qgpt from "./Qgpt";
 import Mentor from "./Mentor";
-import { createTheme,ThemeProvider } from '@mui/material/styles';
+import {ThemeProvider } from '@mui/material/styles';
+import theme from "../../theme/theme"
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
 }
-let theme = createTheme({
-    palette: {
-      primary: {
-        main: '#0EA7DA',
-      },
-      secondary: {
-        main: '#edf2ff',
-      },
-    },
-    typography:{
-        fontFamily:yekan as any,
-    }
-  });
-  
+
 
 function CustomTabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
