@@ -21,6 +21,7 @@ export default function Qgpt() {
   const [response, setResponse] = React.useState("");
   const [prompt, setPrompt] = React.useState("");
   const [description, setDescription] = React.useState<string>("");
+  const [displayedResponse, setDisplayedResponse] = React.useState("");
 
   const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -36,8 +37,10 @@ export default function Qgpt() {
     console.log(selectedQuestion?.description)
   };
   
+ 
   const handleSendPrompt = async () => {
     try {
+
       const response = await fetch("http://127.0.0.1:8000/qgpt/", {
         method: "POST",
         headers: {
@@ -47,15 +50,18 @@ export default function Qgpt() {
           prompt:`${prompt}\n ${description}`
         }),
       });
-
       const responseData = await response.json();
-      const resp = responseData.choices[0].text;
-      setResponse(resp);
+      const fullResponse = responseData.choices[0].text;
+
+      for (let i = 0; i < fullResponse.length; i++) {
+        setTimeout(() => {
+          setDisplayedResponse((prevResponse) => prevResponse + fullResponse[i]);
+        }, 50 * i);
+      }
     } catch (error) {
       console.error("Error sending prompt:", error);
     }
   };
-
 
   return (
     <CacheProvider value={cacheRtl}>
@@ -148,7 +154,7 @@ export default function Qgpt() {
               </div>
             </Grid>
             <Grid xs={16}>
-              <div>{response}</div>
+              <div>{displayedResponse}</div>
             </Grid>
           </Grid>
         </Box>
