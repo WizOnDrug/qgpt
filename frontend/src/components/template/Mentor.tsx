@@ -29,7 +29,7 @@ export default function Mentor() {
   const [file, setFile] = React.useState(null);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const MAX_FILE_SIZE_MB = 2;
-  const { quetions } = data;
+  const { questions } = data;
   const handleChange = (newFile: any) => {
     if (
       newFile &&
@@ -101,7 +101,7 @@ export default function Mentor() {
                   onChange={handleChangeQuestion}
                   sx={{ fontWeight: "1" }}
                 >
-                  {data.quetions.map(
+                  {data.questions.map(
                     (q: { id: number; title: string; description: string }) => (
                       <MenuItem key={q.id} value={q.title}>
                         {q.title}
