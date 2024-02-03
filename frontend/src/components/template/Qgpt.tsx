@@ -14,18 +14,48 @@ import cacheRtl from "../../theme/rtl";
 import theme from "../../theme/theme";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import data from "../../json/fakedata.json";
-const { quetions } = data;
+const { questions } = data;
 export default function Qgpt() {
   const [title, setTitle] = React.useState("");
   const [question, setQuestion] = React.useState("");
+  const [response, setResponse] = React.useState("");
+  const [prompt, setPrompt] = React.useState("");
+  const [description, setDescription] = React.useState<string>("");
 
   const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
 
   const handleChangeQuestion = (event: SelectChangeEvent) => {
-    setQuestion(event.target.value);
+    const selectedQuestion = questions.find((q) => q.title === event.target.value);
+  
+    if (selectedQuestion) {
+      setQuestion(selectedQuestion.title);
+      setDescription(selectedQuestion.description);
+    }
+    console.log(selectedQuestion?.description)
   };
+  
+  const handleSendPrompt = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/qgpt/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt:`${prompt}\n ${description}`
+        }),
+      });
+
+      const responseData = await response.json();
+      const resp = responseData.choices[0].text;
+      setResponse(resp);
+    } catch (error) {
+      console.error("Error sending prompt:", error);
+    }
+  };
+
 
   return (
     <CacheProvider value={cacheRtl}>
@@ -73,7 +103,7 @@ export default function Qgpt() {
                   onChange={handleChangeQuestion}
                   sx={{ fontWeight: "1" }}
                 >
-                  {data.quetions.map(
+                  {questions.map(
                     (q: { id: number; title: string; description: string }) => (
                       <MenuItem key={q.id} value={q.title}>
                         {q.title}
@@ -96,6 +126,7 @@ export default function Qgpt() {
                     fontWeight: 1,
                   }}
                   placeholder="سوال خودتون رو اینجا بنویسید"
+                  onChange={(event) => setPrompt(event.target.value)}
                 />
                 <Button
                 variant="contained"
@@ -112,8 +143,12 @@ export default function Qgpt() {
                         color: 'white',
                       },
                   }}
+                  onClick={handleSendPrompt}
                 ></Button>
               </div>
+            </Grid>
+            <Grid xs={16}>
+              <div>{response}</div>
             </Grid>
           </Grid>
         </Box>
