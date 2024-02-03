@@ -15,8 +15,9 @@ import { toast } from "react-toastify";
 import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
 import AttachFileOutlinedIcon from "@mui/icons-material/AttachFileOutlined";
 import DragAndDrop from "../module/Draganddrup";
-import { Button } from "@mui/material";
+import { Button, ListItem } from "@mui/material";
 import theme from "../../theme/theme";
+import data from "../../json/fakedata.json";
 const cacheRtl = createCache({
   key: "muirtl",
   stylisPlugins: [rtlPlugin],
@@ -28,7 +29,7 @@ export default function Mentor() {
   const [file, setFile] = React.useState(null);
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const MAX_FILE_SIZE_MB = 2;
-
+  const { quetions } = data;
   const handleChange = (newFile: any) => {
     if (
       newFile &&
@@ -100,9 +101,13 @@ export default function Mentor() {
                   onChange={handleChangeQuestion}
                   sx={{ fontWeight: "1" }}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {data.quetions.map(
+                    (q: { id: number; title: string; description: string }) => (
+                      <MenuItem key={q.id} value={q.title}>
+                        {q.title}
+                      </MenuItem>
+                    )
+                  )}
                 </Select>
               </FormControl>
             </Grid>
@@ -151,7 +156,11 @@ export default function Mentor() {
               <DragAndDrop />
             </Grid>
             <Grid xs={8}>
-              <Button variant="contained" sx={{backgroundColor:"#EDF2F7"}}  className="w-40 h-10">
+              <Button
+                variant="contained"
+                sx={{ backgroundColor: "#EDF2F7" }}
+                className="w-40 h-10"
+              >
                 ارسال
               </Button>
             </Grid>

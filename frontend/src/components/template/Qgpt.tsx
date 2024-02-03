@@ -13,7 +13,8 @@ import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAuto
 import cacheRtl from "../../theme/rtl";
 import theme from "../../theme/theme";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-
+import data from "../../json/fakedata.json";
+const { quetions } = data;
 export default function Qgpt() {
   const [title, setTitle] = React.useState("");
   const [question, setQuestion] = React.useState("");
@@ -72,9 +73,13 @@ export default function Qgpt() {
                   onChange={handleChangeQuestion}
                   sx={{ fontWeight: "1" }}
                 >
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {data.quetions.map(
+                    (q: { id: number; title: string; description: string }) => (
+                      <MenuItem key={q.id} value={q.title}>
+                        {q.title}
+                      </MenuItem>
+                    )
+                  )}
                 </Select>
               </FormControl>
             </Grid>
