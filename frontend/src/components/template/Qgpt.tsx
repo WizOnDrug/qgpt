@@ -53,6 +53,26 @@ export default function Qgpt() {
     }
     console.log(selectedQuestion?.description);
   };
+  const fetchTitle = async (description:string) => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/titleapi/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: description,
+        }),
+      });
+  
+      const responseData = await response.json();
+      const title = responseData.choices[0].text;
+      setTitle(title);
+    } catch (error) {
+      console.error("Error fetching title:", error);
+    }
+  };
+  
 
   const handleSendPrompt = async () => {
     setPrompt("");
@@ -88,6 +108,7 @@ export default function Qgpt() {
         updatedChats[updatedChats.length - 1].response = fullResponse;
         return updatedChats;
       });
+      await fetchTitle(description);
     } catch (error) {
       console.error("Error sending prompt:", error);
     } finally {
@@ -108,7 +129,6 @@ export default function Qgpt() {
       });
     }
   }, [displayedResponse]);
-
 
   return (
     <CacheProvider value={cacheRtl}>
