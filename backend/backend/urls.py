@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('qgpt/', include('Qgpt.urls'))
+    path('qgpt/', include('Qgpt.urls')),
+    path('titleapi/', include('TitleApi.urls'))
 ]
