@@ -20,7 +20,7 @@ const DataAndTime = () => {
   }, []);
 
   return (
-    <div className="text-[#718096] font-thin w-[160px] h-[24px]">
+    <div className="text-[#718096] font-thin w-[160px] h-[24px] mr-1">
     <span>{initialDateTime}</span>
     </div>
   );
