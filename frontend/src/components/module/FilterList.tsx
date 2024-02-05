@@ -109,7 +109,7 @@ const FilterList = () => {
                     sx={{ fontWeight: "1", height: "35px" }}
                   >
                     <MenuItem value={30}>
-                      <p>همه سوالات</p>
+                      <span>همه سوالات</span>
                     </MenuItem>
                     <MenuItem value={1}>۱ ساعت گذشته</MenuItem>
                     <MenuItem value={2}>۲۴ ساعت گذشته</MenuItem>
@@ -139,7 +139,7 @@ const FilterList = () => {
                     sx={{ fontWeight: "1", height: "35px" }}
                   >
                     <MenuItem value={20}>
-                      <p>همه</p>
+                      <span>همه</span>
                     </MenuItem>
                     <MenuItem value={4}>۱ ساعت گذشته</MenuItem>
                     <MenuItem value={5}>۲۴ ساعت گذشته</MenuItem>
@@ -169,7 +169,7 @@ const FilterList = () => {
                     sx={{ fontWeight: "1", height: "35px" }}
                   >
                     <MenuItem value={10}>
-                      <p>همه</p>
+                      <span>همه</span>
                     </MenuItem>
                     <MenuItem value={7}>۱ ساعت گذشته</MenuItem>
                     <MenuItem value={8}>۲۴ ساعت گذشته</MenuItem>

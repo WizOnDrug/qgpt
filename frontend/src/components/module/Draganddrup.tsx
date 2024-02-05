@@ -126,7 +126,7 @@ export default function DragAndDrop() {
                 </defs>
               </svg>
             </div>
-            <p className="text-center text-black text-opacity-40 font-light flex">
+            <div className="text-center text-black text-opacity-40 font-light flex">
               فایل تصویری خود را اینجا بیندازید یا{" "}
               <span
                 className=" text-center text-sky-600 text-base font-normal mr-1 cursor-pointer"
@@ -134,7 +134,7 @@ export default function DragAndDrop() {
               >
                 <span>انتخاب کنید</span>
               </span>{" "}
-            </p>
+            </div>
           </>
         ) : (
           <>
